@@ -36,23 +36,33 @@ const uploadFile = (buffer, key) => {
  });
 }
 
+const url2Fname = url => url.replace(/\//g, "-")
+  .replace("?", "-")
+  .replace("=", "-")
+  .replace(":", "-");
+
+const snapshot = (url) => {
+  fname = url2Fname(url)
+  new Pageres({delay: 2, filename: fname})
+    .src(url, ['1024x768'])
+    .dest(__dirname + "/img")
+    .run()
+    .then(() => {
+      console.log("took snapshot of", url)
+      read_and_upload(__dirname + "/img/" + fname + ".png")
+    });
+}
+
+
 base('urls').select({
     maxRecords: 100,
     view: "Grid view"
 }).eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
     records.forEach(function(record) {
-        const fname = record.get('url').replace(/\//g, "-")
-                                        .replace("?", "-")
-                                        .replace("=", "-")
-                                        .replace(":", "-");
-        console.log('Retrieved', fname);
-
-        new Pageres({delay: 2, filename: fname})
-            .src(record.get('url'), ['1024x768'])
-            .dest(__dirname + "/img")
-            .run()
-            .then(() => read_and_upload(__dirname + "/img/" + fname + ".png"));
+      const url = record.get('url')
+        console.log('Airtable:', url);
+        snapshot(url)
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
