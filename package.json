@@ -9,9 +9,14 @@
     "fs": "^0.0.1-security",
     "pageres": "^4.5.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "prettier": "^1.14.2"
+  },
   "scripts": {
-    "test": "mocha"
+    "lint": "node_modules/eslint/bin/eslint.js get_screenshots.js",
+    "test": "mocha",
+    "precommit": "pretty-quick --staged"
   },
   "author": "Stephen McMurtry",
   "license": "MIT"
