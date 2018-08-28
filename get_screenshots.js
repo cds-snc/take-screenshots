@@ -39,10 +39,10 @@ const snapshot = (project, url, fileName, date) => {
   const now = new Date();
   const nowString = [
     now.getFullYear(),
-    now.getMonth() + 1,
-    now.getDate()
+    (now.getMonth() + 1).toString().padStart(2, '0'),
+    now.getDate().toString().padStart(2, '0')
   ].join("-");
-  const fname = date ? fileName + "-" + date : fileName + nowString
+  const fname = date ? fileName + "-" + date : fileName + "-" + nowString
   const key = project + "/" + fileName + "/" + fname + ".png"
   new Pageres({
     delay: 2,
@@ -71,10 +71,11 @@ base("urls").select({
 }).eachPage(function page(records, fetchNextPage) {
   records.forEach(function(record) {
     const project = record.get("project")
+    const host = record.get("host")
     const url = record.get("url");
     const fileName = record.get("fileName")
-    console.log("Airtable:", project, url, fileName);
-    snapshot(project, url, fileName, date);
+    console.log("Airtable:", project, host, url, "  -->  ", fileName);
+    snapshot(project, host + "/" + url, fileName, date);
   });
   fetchNextPage();
 
