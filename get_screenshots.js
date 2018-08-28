@@ -35,7 +35,7 @@ const uploadFile = (buffer, key) => {
   });
 };
 
-const snapshot = (project, url, fileName, date) => {
+const snapshot = (project, url, screenSize, fileName, date) => {
   const now = new Date();
   const nowString = [
     now.getFullYear(),
@@ -46,9 +46,10 @@ const snapshot = (project, url, fileName, date) => {
   const key = project + "/" + fileName + "/" + fname + ".png"
   new Pageres({
     delay: 2,
-    filename: fname
+    filename: fname,
+    crop: true
   })
-    .src(url, ["1024x768"])
+    .src(url, [screenSize])
     .dest(__dirname + "/img")
     .run()
     .then(() => {
@@ -74,8 +75,9 @@ base("urls").select({
     const host = record.get("host")
     const url = record.get("url");
     const fileName = record.get("fileName")
+    const screenSize = record.get("screenSize")
     console.log("Airtable:", project, host, url, "  -->  ", fileName);
-    snapshot(project, host + "/" + url, fileName, date);
+    snapshot(project, host + "/" + url, screenSize, fileName, date);
   });
   fetchNextPage();
 
