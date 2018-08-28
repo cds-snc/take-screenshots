@@ -27,7 +27,7 @@ const uploadFile = (buffer, key) => {
     Key: key,
     ContentType: "image/png"
   };
-  s3.putObject(params, function(err, data) {
+  s3.putObject(params, function(err) {
       if (err) {
           console.log(err)
       } else {
@@ -48,7 +48,7 @@ base('urls').select({
                                         .replace(":", "-");
         console.log('Retrieved', fname);
 
-        const pageres = new Pageres({delay: 2, filename: fname})
+        new Pageres({delay: 2, filename: fname})
             .src(record.get('url'), ['1024x768'])
             .dest(__dirname + "/img")
             .run()
