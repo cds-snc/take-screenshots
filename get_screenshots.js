@@ -36,15 +36,13 @@ const uploadFile = (buffer, key) => {
 };
 
 const snapshot = (project, url, fileName, date) => {
-  if (date === undefined) {
-    const now = new Date();
-    date = [
-      now.getFullYear(),
-      now.getMonth() + 1,
-      now.getDate()
-    ].join("-");
-  }
-  const fname = fileName + "-" + date;
+  const now = new Date();
+  const nowString = [
+    now.getFullYear(),
+    now.getMonth() + 1,
+    now.getDate()
+  ].join("-");
+  const fname = date ? fileName + "-" + date : fileName + nowString
   const key = project + "/" + fileName + "/" + fname + ".png"
   new Pageres({
     delay: 2,
