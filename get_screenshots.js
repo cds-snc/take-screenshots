@@ -1,5 +1,7 @@
 var Airtable = require("airtable");
-var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY_2}).base("appMmtGZZe1kN10Uy");
+var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY_2 }).base(
+  "appMmtGZZe1kN10Uy"
+);
 const Pageres = require("pageres");
 const AWS = require("aws-sdk");
 const fs = require("fs");
@@ -39,11 +41,14 @@ const snapshot = (project, url, screenSize, fileName, date) => {
   const now = new Date();
   const nowString = [
     now.getFullYear(),
-    (now.getMonth() + 1).toString().padStart(2, '0'),
-    now.getDate().toString().padStart(2, '0')
+    (now.getMonth() + 1).toString().padStart(2, "0"),
+    now
+      .getDate()
+      .toString()
+      .padStart(2, "0")
   ].join("-");
-  const fname = date ? fileName + "-" + date : fileName + "-" + nowString
-  const key = project + "/" + fileName + "/" + fname + ".png"
+  const fname = date ? fileName + "-" + date : fileName + "-" + nowString;
+  const key = project + "/" + fileName + "/" + fname + ".png";
   new Pageres({
     delay: 2,
     filename: fname,
@@ -54,35 +59,38 @@ const snapshot = (project, url, screenSize, fileName, date) => {
     .run()
     .then(() => {
       console.log("took snapshot of", url);
-      console.log("saved locally:", "img/"+ fname + ".png");
-      read_and_upload(__dirname + "/img/" + fname + ".png", key)
+      console.log("saved locally:", "img/" + fname + ".png");
+      read_and_upload(__dirname + "/img/" + fname + ".png", key);
     });
 };
 
 /****** Main ******/
 
-let date = undefined
+let date = undefined;
 if (process.argv.length === 3) {
-  date = process.argv[2]
+  date = process.argv[2];
 }
 
-base("urls").select({
-  maxRecords: 100,
-  view: "Grid view"
-}).eachPage(function page(records, fetchNextPage) {
-  records.forEach(function(record) {
-    const project = record.get("project")
-    const host = record.get("host")
-    const url = record.get("url");
-    const fileName = record.get("fileName")
-    const screenSize = record.get("screenSize")
-    console.log("Airtable:", project, host, url, "  -->  ", fileName);
-    snapshot(project, host + "/" + url, screenSize, fileName, date);
-  });
-  fetchNextPage();
-
-}, function done(err) {
-  if (err) {
-    console.error(err);
-  }
-});
+base("urls")
+  .select({
+    maxRecords: 100,
+    view: "Grid view"
+  })
+  .eachPage(
+    function page(records, fetchNextPage) {
+      records.forEach(function(record) {
+        const project = record.get("project");
+        const url = record.get("host") + "/" + record.get("url");
+        const fileName = record.get("fileName");
+        const screenSize = record.get("screenSize");
+        console.log("Airtable:", project, url, "  -->  ", fileName);
+        snapshot(project, url, screenSize, fileName, date);
+      });
+      fetchNextPage();
+    },
+    function done(err) {
+      if (err) {
+        console.error(err);
+      }
+    }
+  );
