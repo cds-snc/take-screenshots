@@ -6,24 +6,17 @@
   "dependencies": {
     "airtable": "^0.5.6",
     "aws-sdk": "^2.291.0",
-    "debug": "^3.1.0",
     "fs": "^0.0.1-security",
-    "growl": "^1.10.5",
-    "pageres": "^4.5.1"
+    "pageres": "^4.5.1",
+    "next": "^7.0.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   },
-  "devDependencies": {
-    "eslint": "^5.4.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "husky": "^0.14.3",
-    "prettier": "^1.14.2",
-    "pretty-quick": "^1.6.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "start": "node get_screenshots.js",
-    "lint": "node_modules/eslint/bin/eslint.js get_screenshots.js",
-    "test": "mocha",
-    "precommit": "pretty-quick --staged"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "author": "Stephen McMurtry",
   "license": "MIT"
