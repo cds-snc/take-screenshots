@@ -1,0 +1,20 @@
+{
+  "name": "simplify-privacy-statements",
+  "scripts": {},
+  "env": {
+    "VAC_CDS_SNC_KEY": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

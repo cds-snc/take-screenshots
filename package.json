@@ -1,23 +1,55 @@
 {
-  "name": "take-screenshots",
-  "version": "1.0.0",
-  "description": "take screenshots to track how your website has developed!",
-  "main": "get_screenshots.js",
-  "dependencies": {
-    "airtable": "^0.5.6",
-    "aws-sdk": "^2.291.0",
-    "fs": "^0.0.1-security",
-    "pageres": "^4.5.1",
-    "next": "^7.0.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2"
-  },
-  "devDependencies": {},
+  "name": "create-next-example-app",
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
+    "precommit": "pretty-quick --staged",
     "build": "next build",
-    "start": "next start"
+    "heroku-postbuild": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "test": "jest --coverage",
+    "lint": "node_modules/eslint/bin/eslint.js pages components __tests__"
   },
-  "author": "Stephen McMurtry",
-  "license": "MIT"
+  "dependencies": {
+    "babel-plugin-emotion": "^9.2.10",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
+    "babel-polyfill": "^6.26.0",
+    "compression": "^1.7.3",
+    "detect-browser": "^3.0.0",
+    "emotion": "^9.2.8",
+    "emotion-server": "^9.2.8",
+    "express": "^4.16.3",
+    "govuk-react": "^0.2.11",
+    "helmet": "^3.13.0",
+    "html-docx-js": "^0.3.1",
+    "markdown-it": "^8.4.2",
+    "next": "^6.1.2",
+    "next-redux-wrapper": "^2.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-emotion": "^9.2.8",
+    "react-jsx-parser": "^1.5.1",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.6.0",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "eslint": "^5.5.0",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^0.14.3",
+    "jest": "^23.6.0",
+    "jest-axe": "^3.0.0",
+    "prettier": "1.14.2",
+    "pretty-quick": "^1.6.0",
+    "redux-mock-store": "^1.5.3",
+    "regenerator-runtime": "^0.12.1"
+  }
 }
